@@ -1,0 +1,57 @@
+13.2) Perguntando sobre as configuracoes
+
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" -LLL -Q
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" -LLL -Q | less
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" "(olcRootDN=*)" olcSuffix olcRootDN olcRootPW olcAccess -LLL -Q
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=schema,cn=config" -s base -LLL -Q | less
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn={3}inetorgperson,cn=schema,cn=config" -s base -LLL -Q | less
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=schema,cn=config" -s one -LLL -Q | less
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" -LLL -Q "objectClass=olcModuleList"
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" -LLL -Q "objectClass=olcBackendConfig"
+
+ldapsearch -H ldapi:// -Y EXTERNAL -b "cn=config" -LLL -Q "olcDatabase=*" dn
+
+ldapsearch -H ldap:// -x -s base -b "dc=local,dc=br" -LLL "+"
+
+ldapsearch -xLLL -b cn=config -D cn=Manager,cn=config -W olcDatabase={1}hdb olcDbIndex
+
+
+================================================================================================================
+
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=config
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn
+
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=config olcDatabase={2}hdb
+
+ldapsearch -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn -W
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=monitor  objectclass=*
+
+ ldapsearch -x -D 'cn=Manager,dc=local,dc=br' -W \
+                -b 'cn=Monitor' -s base '(objectClass=*)' '*' '+'
+
+ldapsearch -x -D 'cn=Manager,dc=local,dc=br' -W \
+                -b 'cn=Monitor' -s base '(objectClass=*)' '@monitorServer'
+
+ldapsearch -x -D 'cn=Manager,dc=local,dc=br' -W -b 'cn=Monitor' -s sub 1.1
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=Backends,cn=Monitor  objectclass=*
+
+ ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=Databases,cn=Monitor  objectclass=*
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=Connections,cn=Monitor
+
+ldapsearch -Y EXTERNAL -H ldapi:/// -b cn=Overlays,cn=Monitor
